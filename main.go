@@ -38,6 +38,7 @@ var endDateStr = flag.String("end", "", "Date to end (02.01.2006)")
 var argDays = flag.Int("days", 30, "Number of days")
 var outputFileStr = flag.String("output", "", "Outputfile, otherwise print to stdout")
 var langStr = flag.String("lang", "en", "Language")
+var tmplStr = flag.String("tmpl", "calendar.tex", "Template")
 
 var fmap = template.FuncMap{
 	"mod": func(i int, j int) int {
@@ -79,7 +80,7 @@ func main() {
 		fatal("Startdate after enddate!")
 	}
 
-	tmpl, err := template.New("").Funcs(fmap).ParseFiles("calendar.tex")
+	tmpl, err := template.New("").Funcs(fmap).ParseFiles(*tmplStr)
 	if err != nil {
 		fatal("Error parsing template: %s\n", err)
 	}
@@ -117,7 +118,7 @@ func main() {
 		writer = fout
 	}
 
-	err = tmpl.ExecuteTemplate(writer, "calendar.tex", dates)
+	err = tmpl.ExecuteTemplate(writer, *tmplStr, dates)
 	if err != nil {
 		fatal("Error executing template: %s\n", err)
 	}

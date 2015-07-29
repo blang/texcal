@@ -3,6 +3,8 @@ Simple tex calendar generator
 
 Generates a simple monday-sunday (full weeks) calendar using a tex template.
 
+Preview: [English](preview_en.pdf) [German](preview_de.pdf)
+
 Get the generator
 -----
 ```bash
@@ -24,7 +26,7 @@ Other languages
 ------
 
 ```
-./texcal -lang="de" > german.tex
+./texcal -lang="de" -tmpl="calendar_german.tex" > german.tex
 ```
 
 
