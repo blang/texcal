@@ -1,0 +1,31 @@
+\documentclass[a4paper,11pt]{scrartcl}
+\usepackage[margin=1cm]{geometry} %layout
+
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\usepackage{listings} % needed for the inclusion of source code
+% \usepackage{graphicx}
+
+\usepackage{fixltx2e} % For subscript (month)
+
+% Space between rows
+\renewcommand{\arraystretch}{2.0}
+
+\begin{document}
+    \begin{figure}[here]
+    \centering
+    \setlength{\tabcolsep}{10pt} % Space between columns
+    \begin{tabularx}{1.0\textwidth}{*{7}{|Y}|}
+    \hline
+    Monday & Tuesday & Wednesday & Thursday & Friday & Saturday & Sunday \\
+    \hline
+{{ range $index, $date := .}}{{/*
+*/}}{{ if eq (mod $index 7) 0 }} \hline {{ else }} & {{ end }}{{/*
+*/}}{{ $date | day }}{{if or (eq 1 (day $date)) (eq $index 0)}}\textsuperscript{ {{month $date}} }{{end}}{{/*
+*/}}{{ if eq (mod $index 7) 6 }} \\{{end}}{{/*
+*/}}{{ end }}
+    \hline
+    \end{tabularx}
+    \end{figure}
+\end{document}
